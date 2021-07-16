@@ -14,69 +14,46 @@ git clone https://github.com/thiagoloureiro/WebAPIBase.NetCore.git
 
 3) Create a Database (any desired name) in MySQL, you can use an existing one.
 
-4) Modify **appsettings.json** file in **WebAPI Project**, connectionstring:
+4) Modify **appsettings.json** file in **TORO.WebApi**, connectionstring:
    ```
-     "AppSettings": {
-    "MySqlConnectionString": "Server=server;Port=123456;Database=DB;Uid=USRID;Pwd=PASSWD;"
+     "ConnectionStrings": {
+    "localhost": "Server=server;Port=123456;Database=DB;Uid=USRID;Pwd=PASSWD;"
    ```
 Modify using your values.
 
-5) Run the User table Script (Located in DB Project)
-```
-CREATE TABLE User (
-    `Id`             INT            AUTO_INCREMENT  NOT NULL,
-    `Name`           VARCHAR (50)   NULL,
-    `Surname`        VARCHAR (50)   NULL,
-    `Email`          VARCHAR (50)   NULL,
-    `Phone`          NCHAR (10)     NULL,
-    `LastLogon`      DATETIME (6)  NULL,
-    `CreatedOn`      DATETIME (6)  NULL,
-    `ActivationCode` INT            NULL,
-    `Login`          VARCHAR (50)   NOT NULL,
-    `Password`       VARCHAR (50)   NOT NULL,
-    CONSTRAINT `PK_User` PRIMARY KEY (`Id` ASC)
-);
+5) Run the Project.
 
-```
+6) After run the project, in the address bar you will have something like: http://localhost:5001/ (the port may change) add swagger to address, for ex: http://localhost:5001/swagger, a Swagger page should be displayed.
 
-6) Run the Project.
+7) You will notice 2 endpoints, **api/user** and **/api/users/create**, the first one is to login and the second one to create a new user to generate the token for the JWT Authentication.
 
-7) After run the project, in the address bar you will have something like: http://localhost:52915/ (the port may change) add swagger to address, for ex: http://localhost:52915/swagger, a Swagger page should be displayed.
+8) Access the **/api/user/register** endpoind and create a new user, you should receive a result "User Created Successfully! :)"
 
-8) You will notice 2 endpoints, **api/user** and **api/user/create**, the first one is to login and the second one to create a new user to generate the token for the JWT Authentication.
-
-9) Access the **/api/user/create** endpoind and create a new user, you should receive a result "User Created Successfully! :)"
-
-10) Test Login with the Created User in the **/api/user** endpoint, with the following request
+9) Test Login with the Created User in the **/api/users/authenticate** endpoint, with the following request
 ```
 {
   "username": "UserNameHere",
   "password": "PasswordHere"
 }
 ```
-11) You Should receive a ReponseBody like this:
+10) You Should receive a ReponseBody like this:
 ```
 {
-  "Id": 2,
-  "Name": null,
-  "Surname": null,
-  "Email": null,
-  "Phone": null,
-  "LastLogon": "2017-09-29T23:00:56.3166667",
-  "CreatedOn": "2017-09-29T23:00:56.3166667",
-  "ActivationCode": null,
-  "Login": null,
-  "Password": null,
-  "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InRlIiwibmJmIjoxNTA2NzE4ODk0LCJleHAiOjE1MDY3MjAwOTQsImlhdCI6MTUwNjcxODg5NH0.L5LEVLclhj8MSx4stFO44HYRkkdVwb3Pk_ILejRtqVA"
+  "id": 1,
+  "firstName": "Administrador",
+  "lastName": "",
+  "username": "admin",
+  "cpf": "",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJyb2xlIjoidXNlciIsIm5iZiI6MTYyNjQ1NTM1OSwiZXhwIjoxNjI2NDU3MTU5LCJpYXQiOjE2MjY0NTUzNTl9.D0ZQYKCsuLlBt8W1wACIzVVJML-KcLDz-6m_-gPm_EE"
 }
 ```
 
-12) Now you are all set, just create the other Controllers following the patterns and rock on :)
+11) Now you are all set, just create the other Controllers following the patterns and rock on :)
 Remember to dot use the **[AllowAnonymous]**  from the other Controllers you are going to create, because with this property will ignore and you can access the API Without Authentication.
 
-13) To use Authentication for example using Postman, in the HEADER add a Key called "Authorization" **(without quotes)** and Value add: Bearer "the received token from the login" **(without quotes)**
+12) To use Authentication for example using Postman, in the HEADER add a Key called "Authorization" **(without quotes)** and Value add: Bearer "the received token from the login" **(without quotes)**
 
-14) Any Questions please feel free to ask ! :)
+13) Any Questions please feel free to ask ! :)
 
 Enjoy!
 
